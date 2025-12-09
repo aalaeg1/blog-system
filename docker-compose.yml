@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  strapi:
+    build: ./strapi
+    container_name: strapi-blog
+    environment:
+      DATABASE_CLIENT: sqlite
+      DATABASE_FILENAME: /data/data.db
+      NODE_ENV: development
+    volumes:
+      - ./strapi:/srv/app
+      - ./data:/data # Persistance SQLite
+    ports:
+      - "1337:1337"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: frontend-blog
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # Important pour éviter les conflits host/container
+    depends_on:
+      - strapi
+    restart: unless-stopped

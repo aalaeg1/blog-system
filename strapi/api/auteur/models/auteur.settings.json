@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "auteurs",
+  "info": {
+    "name": "Auteur"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nom": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "photo": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}
